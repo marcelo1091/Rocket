@@ -39,8 +39,18 @@ class Rocket(object):
         self.acc *= 0
 
     def draw(self):
+        # Base triangle
         points = [Vector2(0,-10), Vector2(5,5), Vector2(-5,5)]
 
-        points = [Vector2(self.pos+p) for p in points]
+        # Rotate points
+        angle = self.vel.angle_to(Vector2(0,1))
+        points = [p.rotate(angle) for p in points]
 
+        #Fix y axis
+        points = [Vector2(p.x,p.y*-1) for p in points]
+
+        # Add current position
+        points = [Vector2(self.pos+p*2) for p in points]
+
+        #Draw triangle
         pygame.draw.polygon(self.game.screen, (0,100,255), points)
