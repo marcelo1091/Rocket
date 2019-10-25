@@ -5,7 +5,7 @@ class Game(object):
 
     def __init__(self):
         # Config
-        self.max_tps = 200.0
+        self.max_tps = 100.0
         self.resolution = [1000,600]
 
         #Init
