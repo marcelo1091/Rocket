@@ -42,7 +42,6 @@ class Game(object):
     def draw(self):
         self.player.draw()
 
-
 if __name__ == "__main__":
     Game()
 
