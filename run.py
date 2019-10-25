@@ -1,12 +1,12 @@
 import pygame, sys
-from rocket import  Rocket
+from rocket import Rocket
 
 class Game(object):
 
     def __init__(self):
         # Config
         self.max_tps = 100.0
-        self.resolution = [1000,600]
+        self.resolution = [800,600]
 
         #Init
         pygame.init()

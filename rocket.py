@@ -1,4 +1,4 @@
-import  pygame
+import pygame
 from pygame.math import Vector2
 
 class Rocket(object):
@@ -6,17 +6,24 @@ class Rocket(object):
     def __init__(self, game):
         self.game = game
         self.airResistance = 0.9
-        self.speed = 1.0
-        self.gravity = 0.25
+        self.speed = 0.1
+        self.gravity = 0.0
 
-        size = self.game.screen.get_size()
+        self.size = self.game.screen.get_size()
 
-        self.pos = Vector2(size[0]/2,size[1]/2)
+        self.pos = Vector2(self.size[0]/2,self.size[1]/2)
         self.vel = Vector2(0,0)
         self.acc = Vector2(0,0)
 
     def add_force(self, force):
         self.acc += force
+
+    def border_collision(self):
+       if self.pos.x+20 >= self.size[0] or \
+        self.pos.x+20 <= 0 or \
+        self.pos.y+20 >= self.size[1] or \
+        self.pos.y+20 <= 0:
+            self.pos = Vector2(self.size[0]/2,self.size[1]/2)
 
     def tick(self):
         # Input
@@ -38,6 +45,9 @@ class Rocket(object):
         self.pos += self.vel
         self.acc *= 0
 
+        #Check border collision
+        self.border_collision()
+
     def draw(self):
         # Base triangle
         points = [Vector2(0,-10), Vector2(5,5), Vector2(-5,5)]
@@ -53,4 +63,7 @@ class Rocket(object):
         points = [Vector2(self.pos+p*2) for p in points]
 
         #Draw triangle
+        pygame.draw.circle(self.game.screen, (255, 0, 0), (200, 200), 100)
         pygame.draw.polygon(self.game.screen, (0,100,255), points)
+
+
