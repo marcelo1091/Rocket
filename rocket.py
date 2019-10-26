@@ -14,16 +14,23 @@ class Rocket(object):
         self.pos = Vector2(self.size[0]/2,self.size[1]/2)
         self.vel = Vector2(0,0)
         self.acc = Vector2(0,0)
+        self.angle = Vector2(0,0)
+        self.direction = Vector2(1,0)
+
+
 
     def add_force(self, force):
         self.acc += force
 
     def border_collision(self):
        if self.pos.x+20 >= self.size[0] or \
-        self.pos.x+20 <= 0 or \
-        self.pos.y+20 >= self.size[1] or \
-        self.pos.y+20 <= 0:
+          self.pos.x-20 <= 0 or \
+          self.pos.y+20 >= self.size[1] or \
+          self.pos.y-20 <= 0:
             self.pos = Vector2(self.size[0]/2,self.size[1]/2)
+
+    def shoot_bullet(self):
+        pass
 
     def tick(self):
         # Input
@@ -45,6 +52,9 @@ class Rocket(object):
         self.pos += self.vel
         self.acc *= 0
 
+        # Get directiion
+        self.direction = Vector2(1,0).rotate(-self.angle)
+
         #Check border collision
         self.border_collision()
 
@@ -53,17 +63,16 @@ class Rocket(object):
         points = [Vector2(0,-10), Vector2(5,5), Vector2(-5,5)]
 
         # Rotate points
-        angle = self.vel.angle_to(Vector2(0,1))
-        points = [p.rotate(angle) for p in points]
+        self.angle = self.vel.angle_to(Vector2(0,1))
+        points = [p.rotate(self.angle) for p in points]
 
         #Fix y axis
         points = [Vector2(p.x,p.y*-1) for p in points]
 
         # Add current position
-        points = [Vector2(self.pos+p*2) for p in points]
+        self.points = [Vector2(self.pos+p*2) for p in points]
 
         #Draw triangle
-        pygame.draw.circle(self.game.screen, (255, 0, 0), (200, 200), 100)
-        pygame.draw.polygon(self.game.screen, (0,100,255), points)
+        pygame.draw.polygon(self.game.screen, (0,100,255), self.points)
 
 

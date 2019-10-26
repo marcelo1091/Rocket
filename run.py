@@ -1,5 +1,6 @@
 import pygame, sys
 from rocket import Rocket
+from bullet import Bullet
 
 class Game(object):
 
@@ -15,6 +16,7 @@ class Game(object):
         self.tps_delta = 0.0
 
         self.player = Rocket(self)
+        self.bullet = Bullet(self)
 
         while True:
             # Events
@@ -23,6 +25,8 @@ class Game(object):
                     sys.exit(0)
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     sys.exit(0)
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    self.bullet.bullets.append([self.player.pos.x, self.player.pos.y, self.player.direction])
 
             # Ticking
             self.tps_delta += self.tps_clock.tick() / 1000.0
@@ -38,9 +42,11 @@ class Game(object):
 
     def tick(self):
         self.player.tick()
+        self.bullet.tick()
 
     def draw(self):
         self.player.draw()
+        self.bullet.draw()
 
 if __name__ == "__main__":
     Game()
