@@ -1,6 +1,7 @@
 import pygame, sys
 from rocket import Rocket
 from bullet import Bullet
+from  enemy import Enemy
 
 class Game(object):
 
@@ -17,6 +18,7 @@ class Game(object):
 
         self.player = Rocket(self)
         self.bullet = Bullet(self)
+        self.enemy = Enemy(self)
 
         while True:
             # Events
@@ -26,7 +28,7 @@ class Game(object):
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     sys.exit(0)
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    self.bullet.bullets.append([self.player.pos.x, self.player.pos.y, self.player.direction])
+                    self.bullet.bullets.append([self.player.pos.x - (self.player.direction.y * 17), self.player.pos.y + (self.player.direction.x * 17), self.player.direction])
 
             # Ticking
             self.tps_delta += self.tps_clock.tick() / 1000.0
@@ -43,10 +45,12 @@ class Game(object):
     def tick(self):
         self.player.tick()
         self.bullet.tick()
+        self.enemy.tick()
 
     def draw(self):
         self.player.draw()
         self.bullet.draw()
+        self.enemy.draw()
 
 if __name__ == "__main__":
     Game()

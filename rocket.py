@@ -17,8 +17,6 @@ class Rocket(object):
         self.angle = Vector2(0,0)
         self.direction = Vector2(1,0)
 
-
-
     def add_force(self, force):
         self.acc += force
 
@@ -29,11 +27,15 @@ class Rocket(object):
           self.pos.y-20 <= 0:
             self.pos = Vector2(self.size[0]/2,self.size[1]/2)
 
-    def shoot_bullet(self):
-        pass
+    def physic(self):
+        self.vel *= self.airResistance
+        self.vel -= Vector2(0, -self.gravity)
 
-    def tick(self):
-        # Input
+        self.vel += self.acc
+        self.pos += self.vel
+        self.acc *= 0
+
+    def input(self):
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_w]:
             self.add_force(Vector2(0,-self.speed))
@@ -44,13 +46,13 @@ class Rocket(object):
         if pressed[pygame.K_d]:
             self.add_force(Vector2(self.speed,0))
 
-        # Physics
-        self.vel *= self.airResistance
-        self.vel -= Vector2(0,-self.gravity)
 
-        self.vel += self.acc
-        self.pos += self.vel
-        self.acc *= 0
+    def tick(self):
+        # Input
+        self.input()
+
+        # Physics
+        self.physic()
 
         # Get directiion
         self.direction = Vector2(1,0).rotate(-self.angle)
