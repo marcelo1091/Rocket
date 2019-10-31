@@ -7,7 +7,7 @@ class Enemy(object):
         self.enemies = []
 
     def spawn_enemy(self):
-        self.enemies.append([random.randint(10,self.size[0] - 10), random.randint(1,self.size[1] - 10)])
+        self.enemies.append([random.randint(10,self.game.screen_size[0] - 10), random.randint(1,self.game.screen_size[1] - 10)])
 
     def remove_enemy(self):
         for e in range(len(self.enemies)):
@@ -21,7 +21,7 @@ class Enemy(object):
                         self.spawn_enemy()
                         break
 
-    def tick(self):
+    def update(self):
         self.remove_enemy()
 
         if len(self.enemies) < 7:

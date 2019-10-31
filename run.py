@@ -13,7 +13,7 @@ class Game(object):
         #Init
         pygame.init()
         self.screen = pygame.display.set_mode(self.resolution)
-        slf.screen_size = self.screen.get_size()
+        self.screen_size = self.screen.get_size()
         self.fps_clock = pygame.time.Clock()
         self.fps_delta = 0.0
 
@@ -45,7 +45,7 @@ class Game(object):
             pygame.display.flip()
 
 
-    def tick(self):
+    def update(self):
         self.player.update()
         self.bullet.update()
         self.enemy.update()

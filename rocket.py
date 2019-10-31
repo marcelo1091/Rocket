@@ -9,7 +9,7 @@ class Rocket(object):
         self.speed = 0.1
         self.gravity = 0.0
 
-        self.pos = Vector2(self.size[0]/2,self.size[1]/2)
+        self.pos = Vector2(self.game.screen_size[0]/2,self.game.screen_size[1]/2)
         self.vel = Vector2(0,0)
         self.acc = Vector2(0,0)
         self.angle = Vector2(0,0)
@@ -45,7 +45,7 @@ class Rocket(object):
             self.add_force(Vector2(self.speed,0))
 
 
-    def updte(self):
+    def update(self):
         # Input
         self.input()
 
