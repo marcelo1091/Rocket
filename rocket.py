@@ -9,8 +9,6 @@ class Rocket(object):
         self.speed = 0.1
         self.gravity = 0.0
 
-        self.size = self.game.screen.get_size()
-
         self.pos = Vector2(self.size[0]/2,self.size[1]/2)
         self.vel = Vector2(0,0)
         self.acc = Vector2(0,0)
@@ -21,11 +19,11 @@ class Rocket(object):
         self.acc += force
 
     def border_collision(self):
-       if self.pos.x+20 >= self.size[0] or \
+        if self.pos.x+20 >= self.game.screen_size[0] or \
           self.pos.x-20 <= 0 or \
-          self.pos.y+20 >= self.size[1] or \
+          self.pos.y+20 >= self.game.screen_size[1] or \
           self.pos.y-20 <= 0:
-            self.pos = Vector2(self.size[0]/2,self.size[1]/2)
+            self.pos = Vector2(self.game.screen_size[0]/2,self.game.screen_size[1]/2)
 
     def physic(self):
         self.vel *= self.airResistance
@@ -47,7 +45,7 @@ class Rocket(object):
             self.add_force(Vector2(self.speed,0))
 
 
-    def tick(self):
+    def updte(self):
         # Input
         self.input()
 

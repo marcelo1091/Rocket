@@ -5,7 +5,6 @@ class Enemy(object):
         self.game = game
         self.bullet = game.bullet
         self.enemies = []
-        self.size = self.game.screen.get_size()
 
     def spawn_enemy(self):
         self.enemies.append([random.randint(10,self.size[0] - 10), random.randint(1,self.size[1] - 10)])

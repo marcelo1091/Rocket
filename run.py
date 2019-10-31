@@ -7,14 +7,15 @@ class Game(object):
 
     def __init__(self):
         # Config
-        self.max_tps = 100.0
+        self.max_fps = 100.0
         self.resolution = [800,600]
 
         #Init
         pygame.init()
         self.screen = pygame.display.set_mode(self.resolution)
-        self.tps_clock = pygame.time.Clock()
-        self.tps_delta = 0.0
+        slf.screen_size = self.screen.get_size()
+        self.fps_clock = pygame.time.Clock()
+        self.fps_delta = 0.0
 
         self.player = Rocket(self)
         self.bullet = Bullet(self)
@@ -28,13 +29,15 @@ class Game(object):
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     sys.exit(0)
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    self.bullet.bullets.append([self.player.pos.x - (self.player.direction.y * 17), self.player.pos.y + (self.player.direction.x * 17), self.player.direction])
+                    self.bullet.bullets.append([self.player.pos.x - (self.player.direction.y * 17), 
+                    self.player.pos.y + (self.player.direction.x * 17), 
+                    self.player.direction])
 
-            # Ticking
-            self.tps_delta += self.tps_clock.tick() / 1000.0
-            while self.tps_delta > 1 / self.max_tps:
-                self.tick()
-                self.tps_delta -= 1 / self.max_tps
+            # Set Max Fps
+            self.fps_delta += self.fps_clock.tick() / 1000.0
+            while self.fps_delta > 1 / self.max_fps:
+                self.update()
+                self.fps_delta -= 1 / self.max_fps
 
             # Rendering
             self.screen.fill((0, 0, 0))
@@ -43,9 +46,9 @@ class Game(object):
 
 
     def tick(self):
-        self.player.tick()
-        self.bullet.tick()
-        self.enemy.tick()
+        self.player.update()
+        self.bullet.update()
+        self.enemy.update()
 
     def draw(self):
         self.player.draw()
