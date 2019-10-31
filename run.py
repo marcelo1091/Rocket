@@ -2,6 +2,7 @@ import pygame, sys
 from rocket import Rocket
 from bullet import Bullet
 from  enemy import Enemy
+from enemy_bullet import Enemy_bullets
 
 class Game(object):
 
@@ -20,6 +21,7 @@ class Game(object):
         self.player = Rocket(self)
         self.bullet = Bullet(self)
         self.enemy = Enemy(self)
+        self.enemy_bullet = Enemy_bullets(self)
 
         while True:
             # Events
@@ -44,16 +46,17 @@ class Game(object):
             self.draw()
             pygame.display.flip()
 
-
     def update(self):
         self.player.update()
         self.bullet.update()
         self.enemy.update()
+        self.enemy_bullet.tick()
 
     def draw(self):
         self.player.draw()
         self.bullet.draw()
         self.enemy.draw()
+        self.enemy_bullet.draw()
 
 if __name__ == "__main__":
     Game()

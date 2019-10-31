@@ -31,4 +31,4 @@ class Bullet(object):
 
     def draw(self):
         for bullet in self.bullets:
-            pygame.draw.circle(self.game.screen,(255,0,0), (int(bullet[0]), int(bullet[1])), 3)
+             pygame.draw.rect(self.game.screen, (255,0,0), (int(bullet[0]), int(bullet[1]), 3,3))
