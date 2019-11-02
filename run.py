@@ -34,7 +34,6 @@ class Game(object):
                     self.bullet.bullets.append([self.player.pos.x - (self.player.direction.y * 17), 
                     self.player.pos.y + (self.player.direction.x * 17), 
                     self.player.direction])
-
             # Set Max Fps
             self.fps_delta += self.fps_clock.tick() / 1000.0
             while self.fps_delta > 1 / self.max_fps:

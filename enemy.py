@@ -5,6 +5,7 @@ class Enemy(object):
     def __init__(self, game):
         self.game = game
         self.bullet = game.bullet
+        #self.rect = pygame.Rect()
         self.enemies = []
 
     def spawn_enemy(self):
@@ -13,7 +14,7 @@ class Enemy(object):
     def remove_enemy(self):
         for e in range(len(self.enemies)):
             for b in range(len(self.bullet.bullets)):
-                if self.enemies[e].rect.colliderect(self.bullet.bullets[b].rect):
+                if pygame.Rect(self.enemies[e][0], self.enemies[e][1], 20, 20).colliderect(pygame.Rect(self.bullet.bullets[b][0], self.bullet.bullets[b][1], 3, 3)):
                # if self.bullet.bullets[b][0] - self.bullet.bullet_radius < self.enemies[e][0] + 20 and \
                 #        self.bullet.bullets[b][0] + self.bullet.bullet_radius > self.enemies[e][0]:
                  #   if self.bullet.bullets[b][1] + self.bullet.bullet_radius > self.enemies[e][1] and \
