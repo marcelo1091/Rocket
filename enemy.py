@@ -19,9 +19,11 @@ class Enemy(object):
                 #        self.bullet.bullets[b][0] + self.bullet.bullet_radius > self.enemies[e][0]:
                  #   if self.bullet.bullets[b][1] + self.bullet.bullet_radius > self.enemies[e][1] and \
                   #          self.bullet.bullets[b][1] - self.bullet.bullet_radius < self.enemies[e][1] + 20:
-                        self.enemies.remove(self.enemies[e])
-                        self.bullet.remove_bullet(self.bullet.bullets[b])
-                        break
+                    self.enemies.remove(self.enemies[e])
+                    self.bullet.remove_bullet(self.bullet.bullets[b])
+                    self.spawn_enemy()
+                    break
+                    
 
     def update(self):
         self.remove_enemy()
